@@ -15,5 +15,5 @@ x = tf.placeholder(tf.float32, [None, 28 * 28])
 # The output (which digit is it, but in an array - 0 for all the ones that are not, and 1 for the one that is correct)
 y = tf.placeholder(tf.float32, [None, 10])
 
-# 3.0) A Neural Network Example
-# 2.5) The Notation
+# 3.0) A Neural Network Example (https://adventuresinmachinelearning.com/python-tensorflow-tutorial/)
+# 2.5) The Notation (https://adventuresinmachinelearning.com/neural-networks-tutorial/)
