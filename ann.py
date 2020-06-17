@@ -44,6 +44,17 @@ init_op = tf.global_variables_initializer()
 correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
+# Just for ONE image (after having trained the neural net)
+print(mnist.train.labels[0])
+
+# image_data = tf.placeholder(tf.float32, [1, 28 * 28])
+
+image_hidden_in = tf.add(tf.matmul(x, w1), b1)
+image_hidden_in = tf.nn.relu(hidden_out)
+
+image_hidden_out = tf.add(tf.matmul(image_hidden_in, w2), b2)
+image_hidden_out = tf.nn.softmax(image_hidden_out)
+
 with tf.Session() as sess:
     sess.run(init_op)
 
@@ -56,5 +67,13 @@ with tf.Session() as sess:
 
             avg_cost += c / total_batch
         print("Epoch:", (epoch + 1), "cost = ", "{:.3f}".format(avg_cost))
-    print(sess.run(accuracy, feed_dict = {x: mnist.test.images, y: mnist.test.labels}))
+    # print(sess.run(accuracy, feed_dict = {x: mnist.train.images[0], y: mnist.train.labels[0]}))
+
+    result = sess.run(image_hidden_out, feed_dict = {x: [mnist.train.images[0]], y: [mnist.train.labels[0]] })
+
+    print(result)
+    
+    print(mnist.train.labels[0])
+
+    sess.close()
 
