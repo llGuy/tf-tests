@@ -28,12 +28,16 @@ b2 = tf.Variable(tf.random_normal([10]), name = 'b2')
 
 hidden_out = tf.add(tf.matmul(x, w1), b1)
 # Activation function
+# If the value is less than 0, then simply clip to 0
 hidden_out = tf.nn.relu(hidden_out)
 
-# Calculate the hidden layer output - in this case, we use softmax
+# Calculate the hidden layer output
 y_ = tf.add(tf.matmul(hidden_out, w2), b2)
+
+# Softmax squishes the values so that all the values in the tensors add up to 1
 y_ = tf.nn.softmax(y_)
 
+# Here we calculate the cross entropy which we want to minise with the optimiser
 y_clipped = tf.clip_by_value(y_, 1e-10, 0.9999999)
 cross_entropy = -tf.reduce_mean(tf.reduce_sum(y * tf.log(y_clipped) + (1 - y) * tf.log(1 - y_clipped), axis = 1))
 
